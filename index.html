@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <meta name="description" content="Project website for CODIG">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="icons/robot_icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRVH8WKJNF"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-LRVH8WKJNF');
+    </script>
+    <title>Factorized Diffusion Policy</title>
+  </head>
+
+  <style>
+    .grad_text {
+      background: -webkit-linear-gradient(right, #800000, #a44a6f, #3a86ff, #0077b6, #023e8a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>  
+
+  <body>
+    <section>
+      <div class="relative items-center w-full px-5 pt-12 pb-2 mx-auto md:px-12 lg:px-16 max-w-7xl lg:pt-24 lg:pb-4">
+        <div class="flex w-full mx-auto text-left">
+          <div class="relative inline-flex items-center mx-auto align-middle">
+            <div class="text-center">
+              <h1 class="max-w-5xl text-3xl font-bold leading-none tracking-tighter text-black-600 md:text-5xl lg:text-5xl lg:max-w-7xl">
+                Learning Factorized Diffusion Policies for Conditional Action Diffusion
+              </h1>
+              <!-- <div class="space-y-2">
+                <p class="max-w-6xl mx-auto mt-8 text-md md:text-xl lg:text-xl lg:text-xl leading-relaxed text-gray-600 space-x-5">
+                  <a href="" class="hover:text-gray-800"> <sup>1</sup>*</a>
+                  <a href="" class="hover:text-gray-800"> <sup>1</sup></a>
+                </p>
+                <p class="max-w-6xl mx-auto mt-8 text-md md:text-xl lg:text-xl lg:text-xl leading-relaxed text-gray-400 space-x-7">
+                  <span>*Equal Contribution</span>
+                  <span><sup>1</sup> </span>
+                </p>
+                <p class="max-w-6xl mx-auto mt-8 text-md md:text-xl lg:text-xl lg:text-xl leading-relaxed text-gray-600 space-x-7">
+                  <span class="font-bold">CoRL 2025</span>
+                </p>
+              </div> -->
+              <!-- <div class="flex items-center justify-center w-full max-w-2xl gap-2 mx-auto mt-6">
+                <a href="" class="inline-flex items-center text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-3 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                  <svg aria-hidden="true" class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  </svg>
+                  <span>Paper</span>
+                </a>
+                <a href="" class="inline-flex items-center text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-3 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                  <svg aria-hidden="true" class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                  </svg>
+                  <span>Arxiv</span>
+                </a>
+                <a href="" class="inline-flex items-center text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-3 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                  <svg aria-hidden="true" class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" />
+                  </svg>
+                  <span>Video</span>
+                </a>
+                <a href="" class="inline-flex items-center text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-3 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                  <svg aria-hidden="true" class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+                  </svg>
+                  <span>Code</span>
+                </a>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-center justify-center pt-3 mx-auto rounded-lg pt-6 max-w-4xl">
+          <img src="./resources/images/approach.png" class="object-cover object-center">
+        </div>
+      </div>
+      <div class="flex flex-col items-center px-5 pt-8 pb-6 my-6 mx-auto max-w-5xl sm:px-6 lg:px-8">
+        <div class="flex flex-col w-full max-w-5xl mx-auto border-l-4 p-12 rounded-r-xl bg-gray-50 prose text-left text-gray-800 leading-7">
+          <h2 class="text-2xl font-bold pb-5"><span>Abstract</span></h2>
+          <p>
+            Diffusion models have emerged as a promising choice for learning robot skills from demonstrations. However, diffusion models are neither robust to visual distribution shifts nor sample-efficient for policy learning. In this work, we present <strong>Factorized Diffusion Policies (FDP)</strong>, a novel theoretical framework to learn action diffusion models without the need to jointly condition on all observational modalities such as proprioception and vision. Using our factored approach leads to <strong>10%</strong> absolute performance improvement for ten RLBench and four Adroit tasks when compared to a standard diffusion policy which jointly conditions on all modalities. Moreover, FDP results in <strong>25%</strong> higher absolute performance across five RLBench tasks with distribution shifts such as visual changes or distractors, where existing diffusion policies fail catastrophically. Our real-world experiments show that FDP is safe and relatively robust to deploy against visual distractors and appearance changes when compared to standard diffusion policies.
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-col items-center px-5 pt-6 pb-3 mx-auto max-w-6xl sm:px-6 lg:px-8">
+        <div class="flex flex-col w-full max-w-6xl mx-auto prose text-left text-gray-800">
+          <h2 class="text-2xl font-bold pb-5"><span class="grad_text">Video</span></h2>
+          <div>
+            <video height="auto" width="100%" controls="" style="border: 1px solid #000;">
+              <source src="./resources/videos/fdp_intro.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col items-center px-5 pt-6 pb-3 mx-auto max-w-6xl sm:px-6 lg:px-8">
+        <div class="flex flex-col w-full max-w-6xl mx-auto prose text-left text-gray-800">
+          <h2 class="text-2xl font-bold pb-5"><span class="grad_text">Method Overview</span></h2>
+          <div class="flex flex-col items-center justify-center pt-3 mx-auto rounded-lg pt-6 max-w-4xl">
+            <img src="./resources/images/method.png" class="object-cover object-center">
+          </div>
+          <p>
+            Describe method here...
+          </p>
+        </div>
+      </div>      
+      <div class="flex flex-col items-center px-5 pt-6 pb-3 mx-auto max-w-6xl sm:px-6 lg:px-8">
+        <div class="flex flex-col w-full max-w-6xl mx-auto prose text-left text-gray-800">
+          <h2 class="text-2xl font-bold pb-5"><span class="grad_text">Real Robot Setup</span></h2>
+          <div>
+            <p class="font-bold pt-1 pb-2">Tasks</p>
+            <p>
+              We evaluate <u>Factorized Diffusion Policy (FDP)</u> and the <u>Diffusion Policy (DP)</u> baseline across four real-world domains and report their task success rates. The domains are: <strong>Close Drawer</strong> as a simple task where the robot has to push the drawer; <strong>Put Block in Bowl</strong> that assesses the policy’s ability to perform precise pick-and-place actions; <strong>Pour in Bowl</strong> to evaluate the policy’s dexterity in operating near joint limits and <strong>Fold Towel</strong> to assess effectiveness in manipulating deformable objects.
+            </p>
+            <div class="flex flex-col items-center justify-center pt-3 mx-auto rounded-lg pt-6 max-w-4xl">
+              <img src="./resources/images/real_world.png" class="object-cover object-center">
+            </div>
+            <!-- <div class="relative items-center w-full px-2 pt-1 pb-1 mx-auto max-w-6xl">
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/tasks/chair.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/tasks/close.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/tasks/door.mp4" type="video/mp4">
+                  </video>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/tasks/fold.mp4" type="video/mp4">
+                  </video>
+                </div>
+              </div>              
+            </div> -->
+            <p class="font-bold pt-4 pb-2">Data Collection</p>
+            <p>
+              We collect 50 demonstrations per domain on a Franka FR3 robot using a 6D space mouse, recording both proprioceptive and visual observations from two cameras—one mounted on the gripper and a static camera covering the workspace. 
+            </p>
+          </div>
+        </div class="flex flex-col w-full max-w-6xl mx-auto prose text-left text-gray-800">
+      </div>
+      <div class="flex flex-col items-center px-5 pt-6 pb-3 mx-auto max-w-6xl sm:px-6 lg:px-8">
+        <div class="flex flex-col w-full max-w-6xl mx-auto prose text-left text-gray-800">
+          <h2 class="text-2xl font-bold pb-5"><span class="grad_text">Real Robot Results</span></h2>
+          <p>
+            The trained policies are evaluated on four task variations in each domain: <strong>default</strong>: an in-distribution setup matching the conditions used during demonstration collection; <strong>color</strong>: the object’s color is altered to test robustness to visual appearance changes; <strong>distractor</strong>: novel, unseen objects such as vegetation props and soft toys are added to the scene to introduce clutter; and <strong>occlusion</strong>: visual input is intermittently blocked during policy rollout to simulate partial observability.          
+          </p>
+          <div>
+            <p class="font-bold pt-1 pb-2">Close Drawer</p>
+            <div class="relative items-center w-full px-2 pt-1 pb-1 mx-auto max-w-6xl">
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div>   
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div>            
+            </div>
+            <p class="font-bold pt-1 pb-2">Put Block in Bowl</p>
+            <div class="relative items-center w-full px-2 pt-1 pb-1 mx-auto max-w-6xl">
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+            </div>
+            <p class="font-bold pt-1 pb-2">Pour in Bowl</p>
+            <div class="relative items-center w-full px-2 pt-1 pb-1 mx-auto max-w-6xl">
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+            </div>
+            <p class="font-bold pt-1 pb-2">Fold Towel</p>
+            <div class="relative items-center w-full px-2 pt-1 pb-1 mx-auto max-w-6xl">
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
+                </div>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="flex flex-col items-center px-5 pt-0 pb-12 mx-auto max-w-6xl sm:px-6 lg:px-8">
+        <div class="flex flex-col w-full max-w-6xl mx-auto prose text-left text-gray-800">
+          <h2 class="text-2xl font-bold pb-5"><span class="grad_text">BibTeX</span></h2>
+          <pre>
+            <code class="language-plaintext text-sm sm:text-base inline-flex text-left items-center space-x-4 bg-gray-800 text-white rounded-lg p-4 pl-6">@inproceedings{xyz2025fdp,
+  title={Learning Factorized Diffusion Policies for Conditional Action Diffusion},
+  booktitle={9th Annual Conference on Robot Learning},
+  year={2025},
+}</code>
+          </pre>
+        </div>
+      </div> -->
+    </section>
+    <!-- <footer class="bg-white mt-4" aria-labelledby="footer-heading">
+      <h2 id="footer-heading" class="sr-only">Footer</h2>
+      <div class="px-4 py-8 mx-auto bg-gray-50 w-full sm:px-6 lg:px-16">
+        <div class="flex flex-wrap items-baseline lg:justify-center">
+          <span class="text-sm text-center font-light text-gray-600">
+            If you have any questions, please contact xyz.
+            <br/>
+            abc provided funds to support this work.
+          </span>
+        </div>
+      </div>
+    </footer> -->
+  </body>
+</html>
