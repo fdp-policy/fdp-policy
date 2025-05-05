@@ -88,7 +88,7 @@
         <div class="flex flex-col w-full max-w-5xl mx-auto border-l-4 p-12 rounded-r-xl bg-gray-50 prose text-left text-gray-800 leading-7">
           <h2 class="text-2xl font-bold pb-5"><span>Abstract</span></h2>
           <p>
-            Diffusion models have emerged as a promising choice for learning robot skills from demonstrations. However, diffusion models are neither robust to visual distribution shifts nor sample-efficient for policy learning. In this work, we present <strong>Factorized Diffusion Policies (FDP)</strong>, a novel theoretical framework to learn action diffusion models without the need to jointly condition on all observational modalities such as proprioception and vision. Using our factored approach leads to <strong>10%</strong> absolute performance improvement for ten RLBench and four Adroit tasks when compared to a standard diffusion policy which jointly conditions on all modalities. Moreover, FDP results in <strong>25%</strong> higher absolute performance across five RLBench tasks with distribution shifts such as visual changes or distractors, where existing diffusion policies fail catastrophically. Our real-world experiments show that FDP is safe and relatively robust to deploy against visual distractors and appearance changes when compared to standard diffusion policies.
+            Diffusion models have emerged as a promising choice for learning robot skills from demonstrations. However, diffusion models are neither robust to visual distribution shifts nor sample-efficient for policy learning. In this work, we present <strong>Factorized Diffusion Policies (FDP)</strong>, a novel theoretical framework to learn action diffusion models without the need to jointly condition on all observational modalities such as proprioception and vision. Using our factored approach leads to <strong>10%</strong> absolute performance improvement for ten RLBench and four Adroit tasks when compared to a standard diffusion policy which jointly conditions on all modalities. Moreover, FDP results in <strong>25%</strong> higher absolute performance across five RLBench tasks with distribution shifts such as visual changes or distractors, where existing diffusion policies fail catastrophically. Our real-world experiments show that FDP is safe and relatively robust to deploy against visual distractors and appearance changes, maintaining strong performance even under significant visual disruptions and outperforming standard diffusion policies by over <strong>40%</strong>.
           </p>
         </div>
       </div>
@@ -105,11 +105,18 @@
       <div class="flex flex-col items-center px-5 pt-6 pb-3 mx-auto max-w-6xl sm:px-6 lg:px-8">
         <div class="flex flex-col w-full max-w-6xl mx-auto prose text-left text-gray-800">
           <h2 class="text-2xl font-bold pb-5"><span class="grad_text">Method Overview</span></h2>
-          <div class="flex flex-col items-center justify-center pt-3 mx-auto rounded-lg pt-6 max-w-4xl">
+          <div class="flex flex-col items-center justify-center pt-3 mx-auto rounded-lg pt-6 pb-5 max-w-4xl">
             <img src="./resources/images/method.png" class="object-cover object-center">
           </div>
           <p>
-            Describe method here...
+            In this work, we propose a novel theoretical framework
+            <strong>Factorized Diffusion Policies</strong> (FDP) 
+            for learning action diffusion models that decouples observational modalities for prioritization. 
+            At its core, FDP learns a <i>residual model</i> using some input modalities that have been omitted 
+            while training a base model with <i>prioritized inputs</i>. The base and residual model outputs are 
+            then composed to obtain samples from the full conditional action distribution. In addition, we present an architecture that enables efficient learning of the residual model in the FDP framework. 
+            We demonstrate that prioritization of modalities may yield significant gains in sample efficiency 
+            and naturally improves policy robustness to distribution shifts in the residual observations.
           </p>
         </div>
       </div>      
@@ -164,12 +171,18 @@
           <div>
             <p class="font-bold pt-1 pb-2">Close Drawer</p>
             <div class="relative items-center w-full px-2 pt-1 pb-1 mx-auto max-w-6xl">
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
                     <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
                   </video>
                   <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dpaug.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
@@ -177,13 +190,19 @@
                   </video>
                   <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
-              </div> 
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
                     <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
                   </video>
                   <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dpaug.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
@@ -191,13 +210,19 @@
                   </video>
                   <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
-              </div>   
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
                     <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
                   </video>
                   <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dpaug.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
@@ -205,13 +230,19 @@
                   </video>
                   <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
-              </div> 
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
                     <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
                   </video>
                   <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dpaug.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
@@ -223,71 +254,101 @@
             </div>
             <p class="font-bold pt-1 pb-2">Put Block in Bowl</p>
             <div class="relative items-center w-full px-2 pt-1 pb-1 mx-auto max-w-6xl">
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                    <source src="./resources/videos/put_block_in_bowl/default/dp_success_default.mp4" type="video/mp4">
                   </video>
-                  <p class="pt-1 text-center">DP</p>
+                  <p class="pt-1 text-center">DP <strong style="color: green;">Success</strong></p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                    <source src="./resources/videos/put_block_in_bowl/default/fdp_success1_default.mp4" type="video/mp4">
                   </video>
-                  <p class="pt-1 text-center">FDP (Ours)</p>
-                </div>
-              </div> 
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
-                <div class="p-2">
-                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
-                  </video>
-                  <p class="pt-1 text-center">DP</p>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                    <source src="./resources/videos/put_block_in_bowl/default/fdp_success2_default.mp4" type="video/mp4">
                   </video>
-                  <p class="pt-1 text-center">FDP (Ours)</p>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
                 </div>
-              </div> 
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                    <source src="./resources/videos/put_block_in_bowl/color/dp_fail_color.mp4" type="video/mp4">
                   </video>
-                  <p class="pt-1 text-center">DP</p>
-                </div>
-                <div class="p-2">
-                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
-                  </video>
-                  <p class="pt-1 text-center">FDP (Ours)</p>
-                </div>
-              </div> 
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
-                <div class="p-2">
-                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
-                  </video>
-                  <p class="pt-1 text-center">DP</p>
+                  <p class="pt-1 text-center">DP <strong style="color: red;">Fail</strong></p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                    <source src="./resources/videos/put_block_in_bowl/color/fdp_success1_color.mp4" type="video/mp4">
                   </video>
-                  <p class="pt-1 text-center">FDP (Ours)</p>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/put_block_in_bowl/color/fdp_success2_color.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
+                </div>
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/put_block_in_bowl/distractor/dp_fail_distractor.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP <strong style="color: red;">Fail</strong></p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/put_block_in_bowl/distractor/fdp_success1_distractor.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/put_block_in_bowl/distractor/fdp_success2_distractor.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
+                </div>
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/put_block_in_bowl/occlusion/dp_fail_occlusion.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP <strong style="color: red;">Fail</strong></p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/put_block_in_bowl/occlusion/fdp_success1_occlusion.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/put_block_in_bowl/occlusion/fdp_success2_occlusion.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
                 </div>
               </div> 
             </div>
             <p class="font-bold pt-1 pb-2">Pour in Bowl</p>
             <div class="relative items-center w-full px-2 pt-1 pb-1 mx-auto max-w-6xl">
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
                     <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
                   </video>
                   <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dpaug.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
@@ -295,13 +356,19 @@
                   </video>
                   <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
-              </div> 
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
                     <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
                   </video>
                   <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dpaug.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
@@ -309,13 +376,19 @@
                   </video>
                   <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
-              </div> 
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
                     <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
                   </video>
                   <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dpaug.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
@@ -323,13 +396,19 @@
                   </video>
                   <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
-              </div> 
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
                     <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
                   </video>
                   <p class="pt-1 text-center">DP</p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/results/chair_long_dpaug.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours)</p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
@@ -341,60 +420,84 @@
             </div>
             <p class="font-bold pt-1 pb-2">Fold Towel</p>
             <div class="relative items-center w-full px-2 pt-1 pb-1 mx-auto max-w-6xl">
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                    <source src="./resources/videos/fold_towel/default/dp_success_default.mp4" type="video/mp4">
                   </video>
-                  <p class="pt-1 text-center">DP</p>
+                  <p class="pt-1 text-center">DP <strong style="color: green;">Success</strong></p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                    <source src="./resources/videos/fold_towel/default/fdp_success1_default.mp4" type="video/mp4">
                   </video>
-                  <p class="pt-1 text-center">FDP (Ours)</p>
-                </div>
-              </div> 
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
-                <div class="p-2">
-                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
-                  </video>
-                  <p class="pt-1 text-center">DP</p>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                    <source src="./resources/videos/fold_towel/default/fdp_success2_default.mp4" type="video/mp4">
                   </video>
-                  <p class="pt-1 text-center">FDP (Ours)</p>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
                 </div>
-              </div> 
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
+                    <source src="./resources/videos/fold_towel/color/dp_fail_color.mp4" type="video/mp4">
                   </video>
-                  <p class="pt-1 text-center">DP</p>
-                </div>
-                <div class="p-2">
-                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
-                  </video>
-                  <p class="pt-1 text-center">FDP (Ours)</p>
-                </div>
-              </div> 
-              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-2 md:w-full">
-                <div class="p-2">
-                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_dp.mp4" type="video/mp4">
-                  </video>
-                  <p class="pt-1 text-center">DP</p>
+                  <p class="pt-1 text-center">DP <strong style="color: red;">Fail</strong></p>
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                    <source src="./resources/videos/fold_towel/color/fdp_success1_color.mp4" type="video/mp4">
                   </video>
-                  <p class="pt-1 text-center">FDP (Ours)</p>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/fold_towel/color/fdp_success2_color.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
+                </div>
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/fold_towel/distractor/dp_fail_distractor.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP <strong style="color: red;">Fail</strong></p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/fold_towel/distractor/fdp_success1_distractor.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/fold_towel/distractor/fdp_success2_distractor.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
+                </div>
+              </div>
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/fold_towel/occlusion/dp_fail_occlusion.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">DP <strong style="color: red;">Fail</strong></p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/fold_towel/occlusion/fdp_success1_occlusion.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
+                </div>
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/fold_towel/occlusion/fdp_success2_occlusion.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
                 </div>
               </div> 
             </div>
