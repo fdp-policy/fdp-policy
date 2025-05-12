@@ -372,7 +372,7 @@
                 </div>
                 <div class="p-2">
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
-                    <source src="./resources/videos/results/chair_long_ours.mp4" type="video/mp4">
+                    <source src="./resources/videos/pour_in_bowl/color/fdp_success2_color.mp4" type="video/mp4">
                   </video>
                   <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
                 </div>
@@ -500,6 +500,63 @@
                   <p class="pt-1 text-center">FDP (Ours) <strong style="color: green;">Success</strong></p>
                 </div>
               </div> 
+            </div>
+                  
+            <div class="flex flex-col items-center px-5 pt-6 pb-3 mx-auto max-w-6xl sm:px-6 lg:px-8">
+              <div class="flex flex-col w-full max-w-6xl mx-auto prose text-left text-gray-800">
+                <h2 class="text-2xl font-bold pb-5">
+                  <span class="grad_text">FDP Failure Cases</span>
+                </h2>
+                <p>
+                  This section presents cases where <strong>Factorized Diffusion Policy (FDP)</strong> fails during execution. These examples highlight limitations under specific visual or task conditions and request for future improvements for robustness and generalization.
+                </p>
+              </div>
+            </div>
+
+            <div class="relative items-center w-full px-2 pt-1 pb-1 mx-auto max-w-6xl">
+              <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
+
+                <div class="p-2">
+                  <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                    <source src="./resources/videos/failures/fdp_fail_block.mp4" type="video/mp4">
+                  </video>
+                  <p class="pt-1 text-center">FDP <strong style="color: red;">Target miss</strong></p>
+                </div>
+
+            <div class="p-2">
+              <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                <source src="./resources/videos/failures/fdp_fail_bowl.mp4" type="video/mp4">
+              </video>
+              <p class="pt-1 text-center">FDP <strong style="color: red;">Safety hit</strong></p>
+            </div>
+
+            <div class="p-2">
+              <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                <source src="./resources/videos/failures/fdp_fail_cloth.mp4" type="video/mp4">
+              </video>
+              <p class="pt-1 text-center">FDP <strong style="color: red;">Gripper timing issue</strong></p>
+            </div>
+
+            <div class="p-2">
+              <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                <source src="./resources/videos/failures/fdp_fail_color.mp4" type="video/mp4">
+              </video>
+              <p class="pt-1 text-center">FDP <strong style="color: red;">Out of distribution</strong></p>
+            </div>
+
+            <div class="p-2">
+              <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                <source src="./resources/videos/failures/fdp_fail_drawer.mp4" type="video/mp4">
+              </video>
+              <p class="pt-1 text-center">FDP <strong style="color: red;">Jerk in final push</strong></p>
+            </div>
+
+            <div class="p-2">
+              <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
+                <source src="./resources/videos/failures/fdp_fail_occlusion_cloth.mp4" type="video/mp4">
+              </video>
+              <p class="pt-1 text-center">FDP <strong style="color: red;">Residual failure</strong></p>
+            </div>
             </div>
           </div>
         </div>

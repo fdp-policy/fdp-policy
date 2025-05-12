@@ -70,7 +70,7 @@ def main():
                     os.makedirs(dst_dir, exist_ok=True)
                     dst = os.path.join(dst_dir, f"{name}{ext}")
                 else:
-                    dst = os.path.join(dirpath, f"{name}_compressed{ext}")
+                    dst = os.path.join(dirpath, f"{name}")
 
                 print(f"Compressing:\n  {src}\n→\n  {dst}")
                 try:
