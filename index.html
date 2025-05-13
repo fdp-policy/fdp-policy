@@ -501,17 +501,13 @@
                 </div>
               </div> 
             </div>
-                  
-            <div class="flex flex-col items-center px-5 pt-6 pb-3 mx-auto max-w-6xl sm:px-6 lg:px-8">
-              <div class="flex flex-col w-full max-w-6xl mx-auto prose text-left text-gray-800">
-                <h2 class="text-2xl font-bold pb-5">
-                  <span class="grad_text">FDP Failure Cases</span>
-                </h2>
-                <p>
-                  This section presents cases where <strong>Factorized Diffusion Policy (FDP)</strong> fails during execution. These examples highlight limitations under specific visual or task conditions and request for future improvements for robustness and generalization.
-                </p>
-              </div>
-            </div>
+        <div class="flex flex-col w-full max-w-6xl mx-auto prose text-left text-gray-800">
+          <h2 class="text-2xl font-bold pb-5"><span class="grad_text">FDP Failure Cases</span></h2>
+          <p>
+            This section presents cases where Factorized Diffusion Policy (FDP) fails during execution. These examples highlight limitations under specific visual or task conditions.
+          </p>
+        </div>
+      </div>
 
             <div class="relative items-center w-full px-2 pt-1 pb-1 mx-auto max-w-6xl">
               <div class="grid w-9/12 grid-cols-1 gap-3 mx-auto md:grid-cols-3 md:w-full">
@@ -520,7 +516,7 @@
                   <video height="auto" width="100%" style="border: 1px solid #000;" autoplay loop muted>
                     <source src="./resources/videos/failures/fdp_fail_block.mp4" type="video/mp4">
                   </video>
-                  <p class="pt-1 text-center">FDP <strong style="color: red;">Target miss</strong></p>
+                  <p class="pt-1 text-center">FDP <strong style="color: red;">Out of distribution</strong></p>
                 </div>
 
             <div class="p-2">
