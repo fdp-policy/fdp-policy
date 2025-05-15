@@ -1,5 +1,6 @@
 ## Learning Factorized Diffusion Policies for Conditional Action Diffusion 🤖
 
+## https://fdp-policy.github.io/fdp-policy/
 <!--
 **fdp-policy/fdp-policy** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
